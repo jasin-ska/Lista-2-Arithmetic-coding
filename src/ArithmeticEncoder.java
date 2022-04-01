@@ -1,6 +1,3 @@
-import jdk.jfr.Unsigned;
-
-import javax.swing.*;
 import java.io.IOException;
 
 import static java.lang.Integer.*;
@@ -35,14 +32,14 @@ public class ArithmeticEncoder {
             //System.out.println("low after 30: " + low);
             for (; ; ) {
                 if (compareUnsigned(high, 0x80000000) < 0) {
-                    output_bit_plus_pending(false, pending_bits);
+                    outputBitAndPendingBits(false, pending_bits);
                     pending_bits = 0;
                     low <<= 1;
                     high <<= 1;
                     high |= 1;
                 } else if (!(compareUnsigned(low, 0x80000000) < 0)) {
-                    System.out.print("IN TRUE");
-                    output_bit_plus_pending(true, pending_bits);
+                    //System.out.print("IN TRUE");
+                    outputBitAndPendingBits(true, pending_bits);
                     pending_bits = 0;
                     low <<= 1;
                     high <<= 1;
@@ -59,9 +56,10 @@ public class ArithmeticEncoder {
             byte_it++;
             if((byte_it)%256 == 0) model.updateRanges();
         }
+        BitsIO.finishByte();
     }
 
-    static void output_bit_plus_pending(boolean bit, int pending_bits) throws IOException {
+    static void outputBitAndPendingBits(boolean bit, int pending_bits) throws IOException {
         BitsIO.output_bit(bit);
         while (pending_bits > 0) {
             pending_bits--;

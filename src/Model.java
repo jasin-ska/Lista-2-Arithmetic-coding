@@ -16,6 +16,7 @@ public class Model {
     public void countByte(byte b) {
         int idx = (int) b + 128;
         bytesCount[idx]++;
+        numberOfBytes++;
     }
 
     public Probability getProbability(byte b) {
@@ -29,12 +30,14 @@ public class Model {
         }
         return -1;
     }
-
     private void initBytesCount() {
         for(int i = 0; i < 256; i++) bytesCount[i] = 1;
     }
 
+
     public void updateRanges() {
+        //numberOfBytes = 0;
+        //for(int i : bytesCount) numberOfBytes += i;
         Probability.denominator = numberOfBytes;
         int it = 0;
         int byteNr = 0;
