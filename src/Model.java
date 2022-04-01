@@ -5,6 +5,7 @@ public class Model {
 
     public Model() {
         initBytesCount();
+        for(int i = 0; i< 256; i++) bytesRanges[i] = new Probability();
         updateRanges();
     }
 

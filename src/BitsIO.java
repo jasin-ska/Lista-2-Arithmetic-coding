@@ -12,11 +12,11 @@ public class BitsIO {
     private static int bitsInCurrByte = 0;
     private static FileOutputStream outputStream;
     private static byte[] input;
-    private static int inputByteIt = 0;
     private static int inputBitIt = 0;
 
-    public static void initOutputFile(String path) throws FileNotFoundException {
+    public static void initOutputFile(String path) throws IOException {
         File outputFile = new File(path);
+        outputFile.createNewFile();
         outputStream = new FileOutputStream(outputFile);
     }
 
@@ -24,8 +24,10 @@ public class BitsIO {
     public static void output_bit(boolean bit) throws IOException {
         currByte <<= 1;
         currByte += bit ? 1 : 0;
+        System.out.println("BIT:"+(bit ? 1 : 0));
         bitsInCurrByte++;
         if(bitsInCurrByte == 8) {
+            //System.out.print(currByte);
             outputByte(currByte);
             currByte = 0;
             bitsInCurrByte = 0;
@@ -42,8 +44,14 @@ public class BitsIO {
     }
 
     public static boolean getInputBit() {
-        byte b = input[inputByteIt];
+        byte b = input[inputBitIt/8];
+        boolean bit = ((b >> inputBitIt) & 1) == 1;
+        System.out.println("BIT:"+(bit ? 1 : 0));
+        inputBitIt++;
+        return bit;
+    }
 
-        return false; //TODO:: aaasdads
+    public static boolean isInput() {
+        return input.length*8>inputBitIt;
     }
 }
