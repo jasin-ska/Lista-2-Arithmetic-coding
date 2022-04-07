@@ -9,9 +9,6 @@ public class Model {
         updateRanges();
     }
 
-    public void incrementNumberOfBytes() {
-        numberOfBytes++;
-    }
 
     public void countByte(byte b) {
         int idx = (int) b + 128;
@@ -36,8 +33,6 @@ public class Model {
 
 
     public void updateRanges() {
-        //numberOfBytes = 0;
-        //for(int i : bytesCount) numberOfBytes += i;
         Probability.denominator = numberOfBytes;
         int it = 0;
         int byteNr = 0;
