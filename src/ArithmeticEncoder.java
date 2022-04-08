@@ -10,50 +10,62 @@ public class ArithmeticEncoder {
         int high = 0xFFFFFFFF;
         int low = 0;
 
-        int pending_bits = 0;
-        int byte_it = 0;
+        int storedBits = 0;
+        int byteIt = 0;
         byte b;
 
-        while (byte_it < input.length) {
-            b = input[byte_it];
+        while (byteIt < input.length) {
+            b = input[byteIt];
             model.countByte(b);
 
             long range = toUnsignedLong(high) - toUnsignedLong(low) + 1;
             Probability p = model.getProbability(b);
             high = (int)(low + (range * p.high) / Probability.denominator) - 1;
             low = (int)(low + (range * p.low) / Probability.denominator);
-            for (; ; ) {
-                if (compareUnsigned(high, 0x80000000) < 0) {
-                    outputBitAndPendingBits(false, pending_bits);
-                    pending_bits = 0;
-                } else if (!(compareUnsigned(low, 0x80000000) < 0)) {
-                    outputBitAndPendingBits(true, pending_bits);
-                    pending_bits = 0;
-                    low-=0x80000000;
-                    high-=0x80000000;
-                } else if (!(compareUnsigned(low, 0x40000000) < 0) && compareUnsigned(high, 0xC0000000) < 0) {
-                    pending_bits++;
-                    low-=0x40000000;
-                    high-=0x40000000;
 
+            for (; ; ) {
+
+                if (compareUnsigned(high, 0x80000000) < 0) {
+                    outputBitAndStoredBits(false, storedBits);
+                    storedBits = 0;
+                    low <<= 1;
+                    high <<= 1;
+                    high |= 1;
+
+                } else if (!(compareUnsigned(low, 0x80000000) < 0)) {
+                    outputBitAndStoredBits(true, storedBits);
+                    storedBits = 0;
+                    //low-=0x80000000;
+                    //high-=0x80000000;
+                    low <<= 1;
+                    high <<= 1;
+                    high |= 1;
+
+
+                } else if (!(compareUnsigned(low, 0x40000000) < 0) && compareUnsigned(high, 0xC0000000) < 0) {
+                    storedBits++;
+                    //low-=0x40000000;
+                    //high-=0x40000000;
+                    low <<= 1;
+                    low &= 0x7FFFFFFF;
+                    high <<= 1;
+                    high |= 0x80000001;
                 } else
                     break;
-                low <<= 1;
-                high <<= 1;
-                high |= 1;
+
             }
-            byte_it++;
-            if((byte_it)%256 == 0) {
+            byteIt++;
+            if((byteIt)%64 == 0) {
                 model.updateRanges();
             }
         }
-        BitsIO.finishByte(low, pending_bits);
+        BitsIO.finishByte(low, storedBits);
     }
 
-    static void outputBitAndPendingBits(boolean bit, int pending_bits) throws IOException {
+    static void outputBitAndStoredBits(boolean bit, int storedBits) throws IOException {
         BitsIO.outputBit(bit);
-        while (pending_bits > 0) {
-            pending_bits--;
+        while (storedBits > 0) {
+            storedBits--;
             BitsIO.outputBit(!bit);
         }
 

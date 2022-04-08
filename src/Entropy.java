@@ -7,12 +7,8 @@ import java.util.Map;
 public class Entropy {
 
 
-    public static float calculateEntropy(String[] args) {
-        String path = args[0];
-        if(args.length != 1) {
-            System.out.println("Usage: java Entropy <path>");
-            return -1;
-        }
+    public static float calculateEntropy(String path) {
+
 
         try {
             byte[] byteArray = Files.readAllBytes(Paths.get(path));

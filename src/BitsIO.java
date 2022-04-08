@@ -7,6 +7,7 @@ import java.lang.*;
 
 
 public class BitsIO {
+
     private static byte currByte = 0;
     private static int bitsInCurrByte = 0;
     private static FileOutputStream outputStream;
@@ -34,6 +35,7 @@ public class BitsIO {
             currByte = 0;
             bitsInCurrByte = 0;
         }
+
     }
     public static void finishByte(int low, int pending) throws IOException {
         boolean msbLow = low < 0;

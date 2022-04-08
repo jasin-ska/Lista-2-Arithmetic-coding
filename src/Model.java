@@ -1,6 +1,6 @@
 public class Model {
-    private int[] bytesCount = new int[256];
-    private Probability[] bytesRanges = new Probability[256];
+    private final int[] bytesCount = new int[256];
+    private final Probability[] bytesRanges = new Probability[256];
     private int numberOfBytes = 256;
 
     public Model() {
