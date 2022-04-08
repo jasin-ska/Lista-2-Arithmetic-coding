@@ -1,0 +1,99 @@
+PNG________________________________________
+
+1MB: sample.png
+CODING STATS ---------
+	Entropy: 7.99016
+	Avg code length: 7.991754
+	Compression rate: 1.0010318
+SIZE ------------
+	Before: 1068158
+	After: 1067057
+	Decoded: 1068158
+TIME ------------
+	Compression: 3.608 s
+	Decompression: 3.729 s
+
+2,5MB: witcher.png
+CODING STATS ---------
+	Entropy: 7.9836073
+	Avg code length: 7.984303
+	Compression rate: 1.001966
+SIZE ------------
+	Before: 2644571
+	After: 2639382
+	Decoded: 2644571
+TIME ------------
+	Compression: 8.917 s
+	Decompression: 9.153 s
+
+30MB: sample30.png
+CODING STATS ---------
+	Entropy: 7.9415298
+	Avg code length: 7.9416075
+	Compression rate: 1.0073527
+SIZE ------------
+	Before: 32916531
+	After: 32676271
+	Decoded: 32916531
+TIME ------------
+	Compression: 108.874 s
+	Decompression: 112.594 s
+
+JPG_________________________________________________
+
+1MB: sample.jpg
+CODING STATS ---------
+	Entropy: 7.9613695
+	Avg code length: 7.9632673
+	Compression rate: 1.0046128
+SIZE ------------
+	Before: 1033414
+	After: 1028669
+	Decoded: 1033414
+TIME ------------
+	Compression: 3.529 s
+	Decompression: 3.593 s
+
+30MB: sample30.jpg
+CODING STATS ---------
+	Entropy: 7.932333
+	Avg code length: 7.932426
+	Compression rate: 1.0085187
+SIZE ------------
+	Before: 30789588
+	After: 30529517
+	Decoded: 30789588
+TIME ------------
+	Compression: 107.595 s
+	Decompression: 109.661 s
+
+MP3_________________________________________________
+
+708KB: sample.mp3
+CODING STATS ---------
+	Entropy: 7.852063
+	Avg code length: 7.8543267
+	Compression rate: 1.0185468
+SIZE ------------
+	Before: 725240
+	After: 712034
+	Decoded: 725240
+TIME ------------
+	Compression: 2.534 s
+	Decompression: 2.631 s
+
+DOC__________________________________________________
+
+0,97MB: sample.doc
+CODING STATS ---------
+	Entropy: 5.6036625
+	Avg code length: 5.6075625
+	Compression rate: 1.4266448
+SIZE ------------
+	Before: 1024000
+	After: 717768
+	Decoded: 1024000
+TIME ------------
+	Compression: 2.633 s
+	Decompression: 3.626 s
+

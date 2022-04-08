@@ -25,27 +25,23 @@ public class ArithmeticEncoder {
 
             for (; ; ) {
 
-                if (compareUnsigned(high, 0x80000000) < 0) {
+                if (compareUnsigned(high, 0x80000000) < 0) { // MSB = 0 (low, high)
                     outputBitAndStoredBits(false, storedBits);
                     storedBits = 0;
                     low <<= 1;
                     high <<= 1;
                     high |= 1;
 
-                } else if (!(compareUnsigned(low, 0x80000000) < 0)) {
+                } else if (!(compareUnsigned(low, 0x80000000) < 0)) { // MSB = 1 (low, hidh)
                     outputBitAndStoredBits(true, storedBits);
                     storedBits = 0;
-                    //low-=0x80000000;
-                    //high-=0x80000000;
                     low <<= 1;
                     high <<= 1;
                     high |= 1;
 
 
-                } else if (!(compareUnsigned(low, 0x40000000) < 0) && compareUnsigned(high, 0xC0000000) < 0) {
+                } else if (!(compareUnsigned(low, 0x40000000) < 0) && compareUnsigned(high, 0xC0000000) < 0) { // low 01..., high 10...
                     storedBits++;
-                    //low-=0x40000000;
-                    //high-=0x40000000;
                     low <<= 1;
                     low &= 0x7FFFFFFF;
                     high <<= 1;
