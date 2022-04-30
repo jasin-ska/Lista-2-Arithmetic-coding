@@ -19,19 +19,19 @@ public class ArithmeticDecoder {
             value += BitsIO.getInputBit() ? 1 : 0;
         }
 
-        while (model.getNumberOfBytes() - 256 < byteSize || BitsIO.isInput()) { //TODO: czy potrzebne to po lub?
+        while (model.getNumberOfBytes() - 256 < byteSize || BitsIO.isInput()) {
 
             long range = toUnsignedLong(high) - toUnsignedLong(low) + 1;
-            int byteRange = (int)( ((toUnsignedLong((int) value) - toUnsignedLong(low)  + 1) * Probability.denominator - 1) / range);
+            int byteRange = (int) (((toUnsignedLong((int) value) - toUnsignedLong(low) + 1) * Probability.denominator - 1) / range);
             b = model.getByte(byteRange);
             model.countByte(b);
 
             Probability p = model.getProbability(b);
             BitsIO.outputByte(b);
-            high = (int)(low + (range * p.high) / (Probability.denominator) - 1);
-            low = (int)(low + (range * p.low) / (Probability.denominator));
+            high = (int) (low + (range * p.high) / (Probability.denominator) - 1);
+            low = (int) (low + (range * p.low) / (Probability.denominator));
             while (BitsIO.isInput()) {
-                if (!(compareUnsigned(low, 0x80000000) < 0) || compareUnsigned(high, 0x80000000) < 0){
+                if (!(compareUnsigned(low, 0x80000000) < 0) || compareUnsigned(high, 0x80000000) < 0) {
                     low <<= 1;
                     high <<= 1;
                     high |= 1;
@@ -50,7 +50,7 @@ public class ArithmeticDecoder {
                     break;
                 }
             }
-            if(model.getNumberOfBytes()%64==0) {
+            if (model.getNumberOfBytes() % 64 == 0) {
                 model.updateRanges();
             }
 

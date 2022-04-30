@@ -8,25 +8,22 @@ public class Entropy {
 
 
     public static float calculateEntropy(String path) {
-
-
         try {
             byte[] byteArray = Files.readAllBytes(Paths.get(path));
 
-            Map<Byte, Integer> bytesCount = new HashMap<>(); // ile razy wystepuje
-            for(byte b : byteArray) {
-                if(!bytesCount.containsKey(b)) {
+            Map<Byte, Integer> bytesCount = new HashMap<>();
+            for (byte b : byteArray) {
+                if (!bytesCount.containsKey(b)) {
                     bytesCount.put(b, 1);
-                }
-                else {
+                } else {
                     bytesCount.put(b, bytesCount.get(b) + 1);
                 }
             }
 
             float HX = 0;
-            for(byte b : bytesCount.keySet()) {
-                float pb = (float)bytesCount.get(b)/byteArray.length;
-                HX-=pb*(Math.log(pb)/Math.log(2));
+            for (byte b : bytesCount.keySet()) {
+                float pb = (float) bytesCount.get(b) / byteArray.length;
+                HX -= pb * (Math.log(pb) / Math.log(2));
             }
 
             return HX;

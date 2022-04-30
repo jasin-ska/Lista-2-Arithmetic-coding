@@ -30,21 +30,22 @@ public class BitsIO {
         currByte <<= 1;
         currByte += bit ? 1 : 0;
         bitsInCurrByte++;
-        if(bitsInCurrByte == 8) {
+        if (bitsInCurrByte == 8) {
             outputByte(currByte);
             currByte = 0;
             bitsInCurrByte = 0;
         }
 
     }
+
     public static void finishByte(int low, int pending) throws IOException {
         boolean msbLow = low < 0;
         outputBit(msbLow);
-        while(pending > 0) {
+        while (pending > 0) {
             outputBit(!msbLow);
             pending--;
         }
-        for(int i = 1; i<32; i++) outputBit(1 == ((low >> (31-i)) & 1));
+        for (int i = 1; i < 32; i++) outputBit(1 == ((low >> (31 - i)) & 1));
     }
 
     public static void outputByte(byte b) throws IOException {
@@ -57,13 +58,13 @@ public class BitsIO {
     }
 
     public static boolean getInputBit() {
-        byte b = input[inputBitIt/8];
-        boolean bit = (((b >> (7 - inputBitIt%8)) & 1) == 1);
+        byte b = input[inputBitIt / 8];
+        boolean bit = (((b >> (7 - inputBitIt % 8)) & 1) == 1);
         inputBitIt++;
         return bit;
     }
 
     public static boolean isInput() {
-        return input.length*8>inputBitIt;
+        return input.length * 8 > inputBitIt;
     }
 }

@@ -23,7 +23,7 @@ public class ArithmeticEncoder {
             high = (int)(low + (range * p.high) / Probability.denominator) - 1;
             low = (int)(low + (range * p.low) / Probability.denominator);
 
-            for (; ; ) {
+            while(true) {
 
                 if (compareUnsigned(high, 0x80000000) < 0) { // MSB = 0 (low, high)
                     outputBitAndStoredBits(false, storedBits);
@@ -32,13 +32,12 @@ public class ArithmeticEncoder {
                     high <<= 1;
                     high |= 1;
 
-                } else if (!(compareUnsigned(low, 0x80000000) < 0)) { // MSB = 1 (low, hidh)
+                } else if (!(compareUnsigned(low, 0x80000000) < 0)) { // MSB = 1 (low, high)
                     outputBitAndStoredBits(true, storedBits);
                     storedBits = 0;
                     low <<= 1;
                     high <<= 1;
                     high |= 1;
-
 
                 } else if (!(compareUnsigned(low, 0x40000000) < 0) && compareUnsigned(high, 0xC0000000) < 0) { // low 01..., high 10...
                     storedBits++;

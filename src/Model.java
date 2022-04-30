@@ -5,7 +5,7 @@ public class Model {
 
     public Model() {
         initBytesCount();
-        for(int i = 0; i< 256; i++) bytesRanges[i] = new Probability();
+        for (int i = 0; i < 256; i++) bytesRanges[i] = new Probability();
         updateRanges();
     }
 
@@ -22,13 +22,14 @@ public class Model {
     }
 
     public byte getByte(int z) {
-        for(int i = 0; i < 256; i++) {
-            if(z >= bytesRanges[i].low && z < bytesRanges[i].high) return (byte)(i-128);
+        for (int i = 0; i < 256; i++) {
+            if (z >= bytesRanges[i].low && z < bytesRanges[i].high) return (byte) (i - 128);
         }
         return -1;
     }
+
     private void initBytesCount() {
-        for(int i = 0; i < 256; i++) bytesCount[i] = 1;
+        for (int i = 0; i < 256; i++) bytesCount[i] = 1;
     }
 
 
@@ -36,7 +37,7 @@ public class Model {
         Probability.denominator = numberOfBytes;
         int it = 0;
         int byteNr = 0;
-        for(Probability p : bytesRanges) {
+        for (Probability p : bytesRanges) {
             p.low = it;
             p.high = it + bytesCount[byteNr];
             it += bytesCount[byteNr];
